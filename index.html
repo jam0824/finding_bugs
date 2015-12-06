@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=500px">
+	<link rel=stylesheet type="text/css" href="css.css">
+	<link rel=stylesheet type="text/css" href="animation.css">
+	<script language="javascript" src="scr/define.js"></script>
+	<script language="javascript" src="scr/serifu.js"></script>
+	<script language="javascript" src="scr/bug.js"></script>
+	<script language="javascript" src="scr/main.js"></script>
+	<title>FindingBugs</title>
+</head>
+
+<body onLoad="init()">
+	<header>
+		<div class="headerTitle fontFrame floatLeft">FindingBugs</div>
+		<div class="headerMenu floatLeft" onClick="checkName()">User Aさん</div>
+		<div class="clear"></div>
+	</header>
+
+	<div id="ID_EDIT_AREA">
+	</div>
+
+	<div class="listMain">
+		<div class="inputHeader">
+			<div class="inputHeaderUpload floatLeft" onclick="upload()">
+				<img src="data/12.png"> 写真・動画を追加
+			</div>
+			<div class="inputHeaderTrophy floatLeft pointer" onclick="viewTrophy()">
+				バグ発見実績
+			</div>
+			<div class="clear"></div>
+		</div>
+		<hr>
+		<div id="ID_INPUT_THUMBNAIL" class="floatLeft listThumbnail"></div>
+		<div class="floatLeft inputMessage">	
+			<textarea id="ID_INPUT_MSG" maxlength="160" placeholder="今どんな気持ち？" onkeyup="countCharacters()"></textarea>
+			<div id="ID_INPUT_PICTURES"></div>
+		</div>
+		<div class="clear"></div>
+		
+		
+		<hr>
+		<div class="inputBottom">
+			<div id="ID_INPUT_COUNT" onClick="bugCounter()"></div><br>
+			<button id="ID_SUBMIT_MSG" onClick="sendMessage()">投稿</button>
+		</div>
+	</div>
+
+	<div id="ID_DISPLAY_ARTICLES">
+		<div class="listMain firstMessage fontFrame">
+			<hr>
+			Twitter, facebookのような擬似SNSです。<br><br>
+			ローカルのみで動作しており、あなた以外はBot。<br>
+			検証で迷惑をかける心配も無用です。<br><br>
+			気になったところをクリック、操作をすると<br>
+			バグが見つかるかもしれません。<br>
+			<hr>
+		</div>
+	</div>
+
+	<div id="ID_DISPLAY_ARTICLES">
+		<div class="listMain">
+			おすすめユーザーをフォローしましょう！　※全員Botです。
+			<hr>
+			<div id="ID_RECOMMEND_USER" class="recomendFollower">
+
+			</div>
+			<hr>
+		</div>
+	</div>
+<div class="caution">※ここから下はバグ検証対象外です※</div>
+<footer>
+	<div class="floatLeft footerCheckBox"><input type="checkbox" id="ID_BUG_FLAG" checked="checked" onClick="changeBugFlag()">バグ発見モード</div>
+	<div class="floatLeft footerCorporation">Traffic Jam(c)</div>
+	<div class="floatLeft footerDownload"><a href="download.html" target="_blank">■ FindingBugsダウンロード ■</a></div>
+	<div class="clear"></div>
+</footer>
+<div class="animationPosition" ID="ID_BUG_LABEL_POS">
+		<div class="animationBase" ID="ID_BUG_LABEL"></div>
+	</div>
+</body>
+</html>
+
+

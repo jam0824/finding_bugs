@@ -1,0 +1,93 @@
+.animationPosition{
+	width: 100%;
+	position: absolute;
+}
+
+.animationBase{
+	position: relative;
+	overflow: hidden;
+	height: 150px;
+}
+.labelFindBug{
+	width: 100%;
+	height: 150px;
+	background-color: #dc0a20;
+	border-radius: 10px;
+}
+.labelFindBug hr{
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+    background-image:    -moz-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+    background-image:     -ms-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+    background-image:      -o-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+}
+.labelFindBugTitle{
+	color: #ffffff;
+	font-size: 40px;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+}
+.labelFindBugMessage{
+	color: #ffffff;
+	font-size: 24px;
+	width: 95%;
+	text-align: center;
+	font-weight: bold;
+	margin: 10px;
+}
+
+.labelAnimation{
+	-webkit-animation-name: labelanim;
+	-webkit-animation-duration:	5s;
+	animation-name: labelanim;
+	animation-duration:	5s;
+	animation-fill-mode:forwards
+}
+
+@-webkit-keyframes labelanim{
+	0%{
+		opacity: 0;
+		-webkit-transform: translateX(100%);
+  		transform: translateX(100%);
+	}
+	30%{
+		opacity: 1;
+		-webkit-transform: translateX(0);
+  		transform: translateX(0);
+	}
+	70%{
+		opacity: 1;
+		-webkit-transform: translateX(0);
+  		transform: translateX(0);
+	}
+	100%{
+		opacity: 0;
+		-webkit-transform: translateX(-100%);
+  		transform: translateX(-100%);
+	}
+}
+@keyframes labelanim{
+	0%{
+		opacity: 0;
+		-webkit-transform: translateX(100%);
+  		transform: translateX(100%);
+	}
+	30%{
+		opacity: 1;
+		-webkit-transform: translateX(0);
+  		transform: translateX(0);
+	}
+	70%{
+		opacity: 1;
+		-webkit-transform: translateX(0);
+  		transform: translateX(0);
+	}
+	100%{
+		opacity: 0;
+		-webkit-transform: translateX(-100%);
+  		transform: translateX(-100%);
+	}
+}
+

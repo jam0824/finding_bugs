@@ -1,0 +1,285 @@
+body{
+	background-color: #dddddd;
+	margin: 0px;
+	font-family:'Lucida Grande','Hiragino Kaku Gothic ProN',Meiryo, sans-serif;
+	color:#000000;
+}
+
+
+.floatLeft{
+	float: left;
+}
+.clear{
+	clear:both;
+}
+.fontFrame{
+	text-shadow: 1px 1px 1px #2e2446,
+    -1px 1px 1px #2e2446,
+    1px -1px 1px #2e2446,
+    -1px -1px 1px #2e2446;
+}
+.pointer{
+	cursor: pointer;
+}
+.radius{
+	border-radius: 5px;
+}
+
+hr{
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+
+header{
+	max-width : 100%;
+	height : 50px;
+	background-color: #8fb800;
+	margin: auto;
+	font-size: 20px;
+	color: #FFFFFF;
+}
+footer{
+	max-width : 100%;
+	height : 30px;
+	background-color: #8fb800;
+	margin: auto;
+	font-size: 12px;
+	color: #FFFFFF;
+	text-align: center;
+}
+button{
+	background-color: #5555BB;
+	color : #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 2px;
+	width: 100px;
+	cursor: pointer;
+}
+
+.headerTitle{
+	margin-left: 10px;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size : 30px;
+	width: 49%;
+}
+.headerMenu{
+	width: 49%;
+	text-align: right;
+	text-decoration: underline;
+}
+
+.profileTitle{
+	width: 50%;
+	color: #ffffff;
+	font-weight: bold;
+}
+.profileClose{
+	width: 50%;
+	text-align: right;
+	cursor: pointer;
+}
+.profileThumbnail{
+	width: 100px;
+}
+.profileThumbnail img{
+	border-radius: 5px;
+	width: 100px;
+}
+.profileName{
+	font-size: 24px;
+	margin: 10px;
+}
+#ID_PROFILE_NAME_INPUT{
+	font-size: 18px;
+}
+.profileNameCount{
+	font-size: 12px;
+	color : #666666;
+}
+.listThumbnail img{
+	border-radius: 5px;
+	width: 50px;
+}
+
+.listMain{
+	background-color: #ffffff;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px;
+}
+
+.listName{
+	font-weight: bold;
+	color: #ffffff;
+	font-size: 12px;
+	width: 49%;
+	height: 20px;
+}
+.listEdit{
+	width: 49%;
+	text-align: right;
+	color: #ffffff;
+	cursor: pointer;
+}
+.listEditList{
+	width: 100%;
+	font-size: 12px;
+	text-align: right;
+}
+.listMessage{
+	margin-left: 10px;
+	width: 80%;
+}
+.listMessageMain{
+	margin-bottom: 10px;
+}
+.listFooter{
+	width: 100%;
+}
+
+.listLike{
+	font-size: 16px;
+	color : #666666;
+	cursor: pointer;
+	width: 50%;
+}
+.listReply{
+	font-size: 16px;
+	color : #666666;
+	cursor: pointer;
+	width: 50%;
+	text-align: right;
+}
+.listReplyMessage{
+	font-size: 12px;
+
+}
+.listFooter input{
+	width: 80%;
+	margin:10px;
+	font-size: 18px;
+}
+.listFooter img{
+	border-radius: 3px;
+	max-width: 30px;
+	margin: 5px;
+}
+
+.inputMessage{
+	margin: 10px;
+	width:80%;
+}
+
+.inputMessage textarea{
+	border: 0px;
+	width : 100%;
+	height: 100px;
+	font-size: 18px;
+}
+
+.inputBottom{
+	width: 100%;
+	text-align: right;
+}
+
+
+.inputHeaderUpload{
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	color: #5555BB;
+	margin: 10px;
+	width: 45%;
+}
+.inputHeaderTrophy{
+	text-align: right;
+	font-size: 14px;
+	font-weight: bold;
+	color: #5555BB;
+	margin: 10px;
+	width: 45%;
+}
+
+.firstMessage{
+	height: 200px;
+	font-size: 18px;
+	text-align: center;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.recomendFollower{
+	width: 100%;
+}
+.recommendFollowerList img{
+	border-radius: 5px;
+	margin: 5px;
+	width: 100px;
+}
+.recommendFollowerList{
+	cursor: pointer;
+}
+
+.trophyHiddenTitle{
+	font-size: 30px;
+	color: #ffffff;
+	font-weight: bold;
+}
+.trophyHiddenList{
+	margin: 5px;
+	font-weight: bold;
+}
+.trophyGoldTitle{
+	font-size: 20px;
+	color: #FFD700;
+	font-weight: bold;
+}
+.trophyGoldList{
+	margin: 5px;
+	font-weight: bold;
+}
+
+.trophySilverTitle{
+	font-size: 20px;
+	color: #DCDDDD;
+	font-weight: bold;
+}
+.trophySilverList{
+	margin: 5px;
+	font-weight: bold;
+}
+
+.trophyBlonsTitle{
+	font-size: 20px;
+	color: #d48232;
+	font-weight: bold;
+}
+.trophyBlonsList{
+	margin: 5px;
+	font-weight: bold;
+}
+
+.caution{
+	text-align: center;
+	color: #ffffff;
+	background-color: #dc0a20;
+}
+.footerCheckBox{
+	width: 33%;
+	text-align: left;
+}
+.footerCorporation{
+	width: 33%;
+	text-align: center;
+}
+.footerDownload{
+	width: 33%;
+	text-align: right;
+}
