@@ -30,6 +30,10 @@ var bugFindNotification = true;
 
 //見つけたバグを保持
 var saveConfirmedBugId = [];
+if (localStorage) {
+	var saved = localStorage["finding-bugs-trophies"];
+	if (saved) saveConfirmedBugId = JSON.parse(saved);
+}
 
 function viewBugEffect(bugId){
 	if(!bugFindNotification) return;
@@ -85,6 +89,7 @@ function checkBug(bugId){
 		}
 	}
 	saveConfirmedBugId.unshift(bugId);
+	if (localStorage) localStorage["finding-bugs-trophies"] = JSON.stringify(saveConfirmedBugId);
 	return true;
 }
 ///////////////////////////////////////////
@@ -147,4 +152,14 @@ function getTrophy(bugId){
 		}
 	}
 	return "？";
+}
+
+
+function clearTrophies(){
+	var result = confirm("本当にクリアしてよろしいですか？");
+	if (result) {
+		saveConfirmedBugId = [];
+		localStorage && localStorage.removeItem("finding-bugs-trophies");
+		alert("クリアしました");
+	}
 }

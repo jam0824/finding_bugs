@@ -463,6 +463,6 @@ function getTime(){
 ///////////////////////////
 //バグフラグのon/off
 function changeBugFlag(){
-	bugFindNotification = (document.getElementById("ID_BUG_FLAG").checked)? true : false;
+	bugFindNotification = document.getElementById("ID_BUG_FLAG").checked;
 
 }

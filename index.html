@@ -6,10 +6,10 @@
 	<meta name="viewport" content="width=500px">
 	<link rel=stylesheet type="text/css" href="css.css">
 	<link rel=stylesheet type="text/css" href="animation.css">
-	<script language="javascript" src="scr/define.js"></script>
-	<script language="javascript" src="scr/serifu.js"></script>
-	<script language="javascript" src="scr/bug.js"></script>
-	<script language="javascript" src="scr/main.js"></script>
+	<script type="application/javascript" src="scr/define.js"></script>
+	<script type="application/javascript" src="scr/serifu.js"></script>
+	<script type="application/javascript" src="scr/bug.js"></script>
+	<script type="application/javascript" src="scr/main.js"></script>
 	<title>FindingBugs</title>
 </head>
 
@@ -73,7 +73,10 @@
 	</div>
 <div class="caution">※ここから下はバグ検証対象外です※</div>
 <footer>
-	<div class="floatLeft footerCheckBox"><input type="checkbox" id="ID_BUG_FLAG" checked="checked" onClick="changeBugFlag()">バグ発見モード</div>
+	<div class="floatLeft footerCheckBox">
+		<input type="checkbox" id="ID_BUG_FLAG" checked="checked" onClick="changeBugFlag()"><label for="ID_BUG_FLAG">バグ発見モード</label>
+		<button onclick="clearTrophies()" style="word-break: keep-all; width: auto">バグ発見実績状況をクリア</button>
+	</div>
 	<div class="floatLeft footerCorporation">Traffic Jam(c)</div>
 	<div class="floatLeft footerDownload"><a href="download.html" target="_blank">■ FindingBugsダウンロード ■</a></div>
 	<div class="clear"></div>
