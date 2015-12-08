@@ -8,7 +8,7 @@ if (!HTMLElement.prototype.hasOwnProperty("html")) {
             range.selectNodeContents(this);
             range.deleteContents();
             
-            if (typeof source !== "string" || source instanceof String || !source) return;
+            if (typeof source !== "string" || !source instanceof String || !source) return;
             
             var df = range.createContextualFragment(source);
             this.appendChild(df);
