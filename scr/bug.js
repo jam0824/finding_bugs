@@ -50,7 +50,7 @@ function viewBugEffect(bugId){
 	html += '</div>';
 
 
-	document.getElementById("ID_BUG_LABEL").innerHTML = html;
+	document.getElementById("ID_BUG_LABEL").html = html;
 	//終了イベント登録
 	document.getElementById("ID_BUG_LABEL").addEventListener('webkitAnimationEnd', handleTransitionEnd, false);
 	document.getElementById("ID_BUG_LABEL").addEventListener('AnimationEnd', handleTransitionEnd, false);
@@ -77,7 +77,7 @@ function getScrollY(){
 }
 
 function handleTransitionEnd() {
-    document.getElementById("ID_BUG_LABEL").innerHTML = "";
+    document.getElementById("ID_BUG_LABEL").html = "";
     document.getElementById("ID_BUG_LABEL_POS").style.display = "none";
 }
 
@@ -138,7 +138,7 @@ function viewTrophy(){
 
 	html += '</div>';
 
-	document.getElementById("ID_EDIT_AREA").innerHTML = html;
+	document.getElementById("ID_EDIT_AREA").html = html;
 
 
 }

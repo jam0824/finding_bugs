@@ -16,7 +16,7 @@ var sendFlag = false;
 //////////////////////////
 //初期化
 function init(){
-	document.getElementById("ID_INPUT_THUMBNAIL").innerHTML =
+	document.getElementById("ID_INPUT_THUMBNAIL").html =
 		'<img src="' + thumbnailPath + userInfo["thumbnail"]+ '">';
 	viewReccomend(3);
 	
@@ -25,7 +25,7 @@ function init(){
 //////////////////////////
 //画像動画アップロード処理
 function upload(){
-	document.getElementById("ID_INPUT_PICTURES").innerHTML += '<img src="test.jpg">';
+	document.getElementById("ID_INPUT_PICTURES").html += '<img src="test.jpg">';
 	alert("undefined");
 	//バグ
 	viewBugEffect("DISABLE_UPLOAD");
@@ -37,7 +37,7 @@ function countCharacters(){
 	var msg = document.getElementById("ID_INPUT_MSG").value;
 	var count = MAX_INPUT_CHAR - msg.length;
 	var str = "" + count + "/" + MAX_INPUT_CHAR;
-	document.getElementById("ID_INPUT_COUNT").innerHTML = str;
+	document.getElementById("ID_INPUT_COUNT").html = str;
 	//バグ
 	if(sendFlag) viewBugEffect("SEND_CANT_DELETE");
 
@@ -133,7 +133,7 @@ function viewArticles(messages){
 		data += list;
 
 	}
-	document.getElementById("ID_DISPLAY_ARTICLES").innerHTML = data;
+	document.getElementById("ID_DISPLAY_ARTICLES").html = data;
 }
 
 ///////////////////////////////////////プロフィール系//////////////////////////////
@@ -154,14 +154,14 @@ function viewProfile(){
 		html += '<div class="clear"></div>';
 		html += '<hr>';
 		html += '<div class="profileThumbnail floatLeft pointer" onClick="viewThumbnail()"><img src="' + thumbnailPath + userInfo["thumbnail"] + '"></div>';
-		html += '<div id="ID_PROFILE_NAME" class="profileName floatLeft pointer"><div onClick="viewNameInput()">' + userInfo["name"] + '</div></div>';
+		html += '<div id="ID_PROFILE_NAME" class="profileName floatLeft pointer"><div onClick="viewNameInput()">' + sanitizeText(userInfo["name"]) + '</div></div>';
 		html += '<div class="clear"></div>';
 		html += '<div id="ID_PROFILE_SELECT_THUMBNAIL"></div>';
 		html += '<div>' + viewFollower() + '</div>';
 
 	html += '</div>';
 
-	document.getElementById("ID_EDIT_AREA").innerHTML = html;
+	document.getElementById("ID_EDIT_AREA").html = html;
 }
 
 ///////////////////////////////////
@@ -170,7 +170,7 @@ function viewNameInput(){
 	var html = '<input maxlength="21" type="text" id="ID_PROFILE_NAME_INPUT" onkeyup="countNameCharacters()">';
 	html += '<div class="profileNameCount" id="ID_PROFILE_NAME_INPUT_COUNT"></div><br><button onClick="changeName()">変更</button>';
 
-	document.getElementById("ID_PROFILE_NAME").innerHTML = html;
+	document.getElementById("ID_PROFILE_NAME").html = html;
 	document.getElementById("ID_PROFILE_NAME_INPUT").value = userInfo["name"];
 	countNameCharacters();
 }
@@ -179,7 +179,7 @@ function viewNameInput(){
 function countNameCharacters(){
 	var msg = document.getElementById("ID_PROFILE_NAME_INPUT").value;
 	var str = "" + msg.length + "/" + 20;
-	document.getElementById("ID_PROFILE_NAME_INPUT_COUNT").innerHTML = str;
+	document.getElementById("ID_PROFILE_NAME_INPUT_COUNT").html = str;
 }
 ///////////////////////////////////
 //名前の変更
@@ -202,7 +202,7 @@ function viewThumbnail(){
 		html += '</div>';
 	}
 	html += '<div class="clear"></div>';
-	document.getElementById("ID_PROFILE_SELECT_THUMBNAIL").innerHTML = html;
+	document.getElementById("ID_PROFILE_SELECT_THUMBNAIL").html = html;
 }
 //////////////////////////
 //サムネイル変更
@@ -214,7 +214,7 @@ function changeThumbnail(id){
 //クローズボタン
 function closeProfile(){
 	init();	//投稿領域の再表示
-	document.getElementById("ID_EDIT_AREA").innerHTML = "";
+	document.getElementById("ID_EDIT_AREA").html = "";
 }
 ///////////////////////
 //フォロワー表示
@@ -261,7 +261,7 @@ function deleteFollower(id){
 function viewEditList(id){
 	var html = "";
 	html = '<div class="pointer" onClick="deleteList(' + id + ')">削除</div>';
-	document.getElementById("ID_EDIT_LIST" + id).innerHTML = html;
+	document.getElementById("ID_EDIT_LIST" + id).html = html;
 	var findId = findObjectId(talkList, id);
 	//バグ
 	if(talkList[findId]["deleteFlug"] == 1){
@@ -301,7 +301,7 @@ function clickLike(id){
 function viewReplyArea(id){
 	var html = "";
 	html = '<input maxlength="' + MAX_INPUT_CHAR + '" id="ID_REPLY_MAIN' + id + '" type="text"><button class="listReplyButton" onClick="writeReply(' + id + ')">コメントする</button>';
-	document.getElementById("ID_REPLY_AREA" + id).innerHTML = html;
+	document.getElementById("ID_REPLY_AREA" + id).html = html;
 	var findId = findObjectId(talkList, id);
 	//バグ
 	if(talkList[findId]["commentFlug"] == 1){
@@ -353,7 +353,7 @@ function viewReccomend(num){
 		checkRnd.unshift(rnd);
 	}
 	html += '<div class="clear"></div>';
-	document.getElementById("ID_RECOMMEND_USER").innerHTML = html;
+	document.getElementById("ID_RECOMMEND_USER").html = html;
 	//バグ
 	if(!checkRecommend(checkRnd)) viewBugEffect("RECCOMEND_VIEW_FRIEND"); 
 }
