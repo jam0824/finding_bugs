@@ -5,7 +5,7 @@ injectMethod(Array.prototype, "random", function(){
     return this[Math.random() * this.length | 0];
 });
 injectMethod(Array.prototype, "distinct", function(){
-    return this.filter(function(e, i) { return this.indexOf(e) === i; });
+    return this.filter(function(e, i, arr) { return arr.indexOf(e) === i; });
 })
 
 injectProperty(HTMLElement.prototype, "html",
