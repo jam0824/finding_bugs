@@ -12,6 +12,8 @@ if (!HTMLElement.prototype.hasOwnProperty("html")) {
             
             var df = range.createContextualFragment(source);
             this.appendChild(df);
+            
+            range.detach();
         },
         get: function() { return this.innerHTML; }
     });
