@@ -41,13 +41,14 @@ function viewBugEffect(bugId){
 	//見つけたバグを確認し、なかったら登録。あったらなし
 	if(!checkBug(bugId)) return;
 
-	var html = "";
-	html += '<div class="labelAnimation labelFindBug radius">';
-	html += '<div class="labelFindBugTitle fontFrame">バグ発見！</div>';
-	html += '<hr>';
-	html += '<div class="labelFindBugMessage fontFrame">' + getBugContents(bugId) + '</div>';
-	html += '<hr>';
-	html += '</div>';
+	var html = [
+		'<div class="labelAnimation labelFindBug radius">',
+		'<div class="labelFindBugTitle fontFrame">バグ発見！</div>',
+		'<hr>',
+		'<div class="labelFindBugMessage fontFrame">' + getBugContents(bugId) + '</div>',
+		'<hr>',
+		'</div>',
+    ].join("");
 
 
 	document.getElementById("ID_BUG_LABEL").html = html;
@@ -83,11 +84,7 @@ function handleTransitionEnd() {
 
 
 function checkBug(bugId){
-	for(var i = 0; i < saveConfirmedBugId.length; i++){
-		if(saveConfirmedBugId[i] == bugId){
-			return false;
-		}
-	}
+	if (saveConfirmedBugId.contains(bugId)) return false;
 	saveConfirmedBugId.unshift(bugId);
 	if (localStorage) localStorage["finding-bugs-trophies"] = JSON.stringify(saveConfirmedBugId);
 	return true;
@@ -102,43 +99,47 @@ function getBugContents(bugId){
 ///////////////////////////////////////////
 //実績表示
 function viewTrophy(){
-	var html = "";
-	html += '<div class="listMain">';
-		html += '<div class="floatLeft profileTitle fontFrame">実績</div>';
-		html += '<div class="floatLeft profileClose" onClick="closeProfile()"><img src="data/close.png"></div>';
-		html += '<div class="clear"></div>';
-		if((getTrophy("SEND_TAG") != "？") || (getTrophy("SEND_SQL") != "？")){
-			html += '<hr>';
-			html += '<div class="trophyHiddenTitle fontFrame">隠し</div>';
-			html += '<div class="trophyHiddenList"><img src="data/hidden.gif" align="middle">' + getTrophy("SEND_TAG") + '</div>';
-			html += '<div class="trophyHiddenList"><img src="data/hidden.gif" align="middle">' + getTrophy("SEND_SQL") + '</div>';
-		}
+	var fragment = [];
+	var html = [
+		'<div class="listMain">',
+		'<div class="floatLeft profileTitle fontFrame">実績</div>',
+		'<div class="floatLeft profileClose" onClick="closeProfile()"><img src="data/close.png"></div>',
+		'<div class="clear"></div>'];
+	if((getTrophy("SEND_TAG") !== "？") || (getTrophy("SEND_SQL") !== "？")){
+		fragment = [
+			'<hr>',
+			'<div class="trophyHiddenTitle fontFrame">隠し</div>',
+			'<div class="trophyHiddenList"><img src="data/hidden.gif" align="middle">' + getTrophy("SEND_TAG") + '</div>',
+			'<div class="trophyHiddenList"><img src="data/hidden.gif" align="middle">' + getTrophy("SEND_SQL") + '</div>'];
+		Array.prototype.push.apply(html, fragment);
+	}
 
-		html += '<hr>';
-		html += '<div class="trophyGoldTitle fontFrame">ゴールド</div>';
-		html += '<div class="trophyGoldList"><img src="data/gold.gif" align="middle">' + getTrophy("SEND_APPER_COUNTER") + '</div>';
-		html += '<div class="trophyGoldList"><img src="data/gold.gif" align="middle">' + getTrophy("RECCOMEND_VIEW_FRIEND") + '</div>';
-		html += '<div class="trophyGoldList"><img src="data/gold.gif" align="middle">' + getTrophy("LIST_DATE") + '</div>';
-		html += '<hr>';
-		html += '<div class="trophySilverTitle fontFrame">シルバー</div>';
-		html += '<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("SEND_MAX_LENGTH_OVER") + '</div>';
-		html += '<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_DELETE_OTHER") + '</div>';
-		html += '<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_COMMENTS") + '</div>';
-		html += '<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_DONT_CLOSE_COMMENTS") + '</div>';
-		html += '<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_DONT_CLOSE_DELETE") + '</div>';
-		html += '<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("PROFILE_MAX_LENGTH") + '</div>';
-		html += '<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("PROFILE_DONT_CHANGE_HEADER") + '</div>';
-		html += '<hr>';
-		html += '<div class="trophyBlonsTitle fontFrame">ブロンズ</div>';
-		html += '<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("DISABLE_UPLOAD") + '</div>';
-		html += '<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("SEND_CANT_DELETE") + '</div>';
-		html += '<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("RECCOMEND_ADD_FRIEND") + '</div>';
-		html += '<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("LIST_LIKES") + '</div>';
-		html += '<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("PROFILE_DELETE_FOLLOWER") + '</div>';
+	fragment = [
+		'<hr>',
+		'<div class="trophyGoldTitle fontFrame">ゴールド</div>',
+		'<div class="trophyGoldList"><img src="data/gold.gif" align="middle">' + getTrophy("SEND_APPER_COUNTER") + '</div>',
+		'<div class="trophyGoldList"><img src="data/gold.gif" align="middle">' + getTrophy("RECCOMEND_VIEW_FRIEND") + '</div>',
+		'<div class="trophyGoldList"><img src="data/gold.gif" align="middle">' + getTrophy("LIST_DATE") + '</div>',
+		'<hr>',
+		'<div class="trophySilverTitle fontFrame">シルバー</div>',
+		'<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("SEND_MAX_LENGTH_OVER") + '</div>',
+		'<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_DELETE_OTHER") + '</div>',
+		'<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_COMMENTS") + '</div>',
+		'<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_DONT_CLOSE_COMMENTS") + '</div>',
+		'<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("LIST_DONT_CLOSE_DELETE") + '</div>',
+		'<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("PROFILE_MAX_LENGTH") + '</div>',
+		'<div class="trophySilverList"><img src="data/silver.gif" align="middle">' + getTrophy("PROFILE_DONT_CHANGE_HEADER") + '</div>',
+		'<hr>',
+		'<div class="trophyBlonsTitle fontFrame">ブロンズ</div>',
+		'<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("DISABLE_UPLOAD") + '</div>',
+		'<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("SEND_CANT_DELETE") + '</div>',
+		'<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("RECCOMEND_ADD_FRIEND") + '</div>',
+		'<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("LIST_LIKES") + '</div>',
+		'<div class="trophyBlonsList"><img src="data/blons.gif" align="middle">' + getTrophy("PROFILE_DELETE_FOLLOWER") + '</div>',
+	'</div>'];                               
 
-	html += '</div>';
-
-	document.getElementById("ID_EDIT_AREA").html = html;
+	Array.prototype.push.apply(html, fragment);
+	document.getElementById("ID_EDIT_AREA").html = html.join("");
 
 
 }
@@ -146,12 +147,7 @@ function viewTrophy(){
 ///////////////////////////////
 //実績取得済みなら文字列、それ以外なら？で返す
 function getTrophy(bugId){
-	for(var i = 0; i < saveConfirmedBugId.length; i++){
-		if(saveConfirmedBugId[i] == bugId){
-			return BUG_CONTENTS[bugId];
-		}
-	}
-	return "？";
+	return (saveConfirmedBugId.contains(bugId)) ? BUG_CONTENTS[bugId] : "？";
 }
 
 
