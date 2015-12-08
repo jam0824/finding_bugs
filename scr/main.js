@@ -359,7 +359,18 @@ function viewReccomend(num){
 }
 
 function checkRecommend(checkRnd){
+<<<<<<< HEAD
 	return checkRnd.length === checkRnd.distinct().length;
+=======
+	for(var i = 0, len = checkRnd.length; i < len; i++){
+		for(var j = i + 1; j < len; j++){
+			if(checkRnd[i] === checkRnd[j]){
+				return false;
+			}
+		}
+	}
+	return true;
+>>>>>>> origin/dev
 }
 
 ///////////////////////////
