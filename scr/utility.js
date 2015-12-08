@@ -4,12 +4,9 @@ injectMethod(Array.prototype, "contains", function(item) {
 injectMethod(Array.prototype, "random", function(){
     return this[Math.random() * this.length | 0];
 });
-<<<<<<< HEAD
 injectMethod(Array.prototype, "distinct", function(){
     return this.filter(function(e, i) { return this.indexOf(e) === i; });
 })
-=======
->>>>>>> origin/dev
 
 injectProperty(HTMLElement.prototype, "html",
     function() { return this.innerHTML; },
