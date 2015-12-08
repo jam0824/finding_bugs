@@ -7,7 +7,7 @@ var thumbnailPath = "./data/thumbnail/";
 var userInfo = {
 	"name" 		: "User A",
 	"thumbnail" : "user0.png",
-	"follower" 	: ""
+	"follower" 	: []
 };
 
 //バグ用
@@ -16,7 +16,7 @@ var sendFlag = false;
 //////////////////////////
 //初期化
 function init(){
-	document.getElementById("ID_INPUT_THUMBNAIL").innerHTML =
+	document.getElementById("ID_INPUT_THUMBNAIL").html =
 		'<img src="' + thumbnailPath + userInfo["thumbnail"]+ '">';
 	viewReccomend(3);
 	
@@ -25,7 +25,7 @@ function init(){
 //////////////////////////
 //画像動画アップロード処理
 function upload(){
-	document.getElementById("ID_INPUT_PICTURES").innerHTML += '<img src="test.jpg">';
+	document.getElementById("ID_INPUT_PICTURES").html += '<img src="test.jpg">';
 	alert("undefined");
 	//バグ
 	viewBugEffect("DISABLE_UPLOAD");
@@ -37,12 +37,12 @@ function countCharacters(){
 	var msg = document.getElementById("ID_INPUT_MSG").value;
 	var count = MAX_INPUT_CHAR - msg.length;
 	var str = "" + count + "/" + MAX_INPUT_CHAR;
-	document.getElementById("ID_INPUT_COUNT").innerHTML = str;
+	document.getElementById("ID_INPUT_COUNT").html = str;
 	//バグ
 	if(sendFlag) viewBugEffect("SEND_CANT_DELETE");
 
 	///// 1/10の確率でボットメッセージを作る
-	if(Math.floor( Math.random() * 100) < 10){
+	if((Math.random() * 100 | 0) < 10){
 		randomBotMessage();
 	}
 }
@@ -54,7 +54,7 @@ function sendMessage(){
 	checkSendMessage(msg);	//バグ。htmlタグチェック
 
 	//バグ。SQLインジェクションチェック（リストが表示されることにする)
-	if(msg.substr(0,4) == "' OR"){
+	if(msg.substr(0,4).toUpperCase() === "' OR"){
 		msg = "";
 		for(var i = 0; i < 5; i++){
 			msg += botName[i] + "<br>";
@@ -105,63 +105,64 @@ function bugCounter(){
 //////////////////////////
 //表示
 function viewArticles(messages){
-	var data = "";
+	var data = [];
 	
 
-	for(var i = 0; i < messages.length; i++){
+	for(var i = 0, len = messages.length; i < len; i++){
 
-		var list = "";
-		list += '<div class="listMain">';
-		list += '<div class="listThumbnail floatLeft"><img src="' + thumbnailPath + messages[i]["image"] + '"></div>';
-		list += '<div class="listMessage floatLeft">';
+		var list = [
+		'<div class="listMain">',
+		'<div class="listThumbnail floatLeft"><img src="' + thumbnailPath + messages[i]["image"] + '"></div>',
+		'<div class="listMessage floatLeft">',
 
-			list += '<div class="listName fontFrame floatLeft">' + messages[i]["name"] + ' <b onClick="clickListDate()">' + messages[i]["time"] + '</b></div>';
-			list += '<div class="listEdit fontFrame floatLeft" onClick="viewEditList(' + messages[i]["id"] + ')">▼</div>';
-			list += '<div class="clear"></div>';
-			list += '<div class="listEditList" ID="ID_EDIT_LIST' + messages[i]["id"] + '"></div>';
-		list += '<div class="listMessageMain">' + messages[i]["msg"] + '</div>';
-		list += '</div>';
-		list += '<div class="clear"><hr></div>';
-		list += '<div class="listFooter">';
-			list += '<div class="listLike floatLeft" onClick="clickLike(' + messages[i]["id"] + ')">良いね！' + messages[i]["like"] +　'</div>'; 
-			list += '<div class="listReply floatLeft" onClick="viewReplyArea(' + messages[i]["id"] + ')"><img align="middle" src="data/5.png">コメント</div>';
-			list += '<div class="clear"></div>';
-			list += '<div ID="ID_REPLY_AREA' + messages[i]["id"] + '">' + messages[i]["reply"] + '</div>';
-		list += '</div>';
-		list += '</div>';
+			'<div class="listName fontFrame floatLeft">' + messages[i]["name"] + ' <b onClick="clickListDate()">' + messages[i]["time"] + '</b></div>',
+			'<div class="listEdit fontFrame floatLeft" onClick="viewEditList(' + messages[i]["id"] + ')">▼</div>',
+			'<div class="clear"></div>',
+			'<div class="listEditList" ID="ID_EDIT_LIST' + messages[i]["id"] + '"></div>',
+		'<div class="listMessageMain">' + messages[i]["msg"] + '</div>',
+		'</div>',
+		'<div class="clear"><hr></div>',
+		'<div class="listFooter">',
+			'<div class="listLike floatLeft" onClick="clickLike(' + messages[i]["id"] + ')">良いね！' + messages[i]["like"] +　'</div>', 
+			'<div class="listReply floatLeft" onClick="viewReplyArea(' + messages[i]["id"] + ')"><img align="middle" src="data/5.png">コメント</div>',
+			'<div class="clear"></div>',
+			'<div ID="ID_REPLY_AREA' + messages[i]["id"] + '">' + messages[i]["reply"] + '</div>',
+		'</div>',
+		'</div>',
+		];
 
-		data += list;
+		Array.prototype.push.apply(data, list);
 
 	}
-	document.getElementById("ID_DISPLAY_ARTICLES").innerHTML = data;
+	document.getElementById("ID_DISPLAY_ARTICLES").html = data.join("");
 }
 
 ///////////////////////////////////////プロフィール系//////////////////////////////
 //プロフィール欄表示（ヘッダから）
 function checkName(){
 	//バグ
-	if(userInfo["name"] != "User A") viewBugEffect("PROFILE_DONT_CHANGE_HEADER");
+	if(userInfo["name"] !== "User A") viewBugEffect("PROFILE_DONT_CHANGE_HEADER");
 	viewProfile();
 }
 
 //////////////////////////////////
 //プロフィール表示
 function viewProfile(){
-	var html = "";
-	html += '<div class="listMain">';
-		html += '<div class="floatLeft profileTitle fontFrame">プロフィール</div>';
-		html += '<div class="floatLeft profileClose" onClick="closeProfile()"><img src="data/close.png"></div>';
-		html += '<div class="clear"></div>';
-		html += '<hr>';
-		html += '<div class="profileThumbnail floatLeft pointer" onClick="viewThumbnail()"><img src="' + thumbnailPath + userInfo["thumbnail"] + '"></div>';
-		html += '<div id="ID_PROFILE_NAME" class="profileName floatLeft pointer"><div onClick="viewNameInput()">' + userInfo["name"] + '</div></div>';
-		html += '<div class="clear"></div>';
-		html += '<div id="ID_PROFILE_SELECT_THUMBNAIL"></div>';
-		html += '<div>' + viewFollower() + '</div>';
+	var html = [
+		'<div class="listMain">',
+		'<div class="floatLeft profileTitle fontFrame">プロフィール</div>',
+		'<div class="floatLeft profileClose" onClick="closeProfile()"><img src="data/close.png"></div>',
+		'<div class="clear"></div>',
+		'<hr>',
+		'<div class="profileThumbnail floatLeft pointer" onClick="viewThumbnail()"><img src="' + thumbnailPath + userInfo["thumbnail"] + '"></div>',
+		'<div id="ID_PROFILE_NAME" class="profileName floatLeft pointer"><div onClick="viewNameInput()">' + sanitizeText(userInfo["name"]) + '</div></div>',
+		'<div class="clear"></div>',
+		'<div id="ID_PROFILE_SELECT_THUMBNAIL"></div>',
+		'<div>' + viewFollower() + '</div>',
+		'</div>',
+	].join("");
 
-	html += '</div>';
-
-	document.getElementById("ID_EDIT_AREA").innerHTML = html;
+	document.getElementById("ID_EDIT_AREA").html = html;
 }
 
 ///////////////////////////////////
@@ -170,7 +171,7 @@ function viewNameInput(){
 	var html = '<input maxlength="21" type="text" id="ID_PROFILE_NAME_INPUT" onkeyup="countNameCharacters()">';
 	html += '<div class="profileNameCount" id="ID_PROFILE_NAME_INPUT_COUNT"></div><br><button onClick="changeName()">変更</button>';
 
-	document.getElementById("ID_PROFILE_NAME").innerHTML = html;
+	document.getElementById("ID_PROFILE_NAME").html = html;
 	document.getElementById("ID_PROFILE_NAME_INPUT").value = userInfo["name"];
 	countNameCharacters();
 }
@@ -179,7 +180,7 @@ function viewNameInput(){
 function countNameCharacters(){
 	var msg = document.getElementById("ID_PROFILE_NAME_INPUT").value;
 	var str = "" + msg.length + "/" + 20;
-	document.getElementById("ID_PROFILE_NAME_INPUT_COUNT").innerHTML = str;
+	document.getElementById("ID_PROFILE_NAME_INPUT_COUNT").html = str;
 }
 ///////////////////////////////////
 //名前の変更
@@ -195,14 +196,17 @@ function changeName(){
 ////////////////////////////////////
 //変更サムネイル表示
 function viewThumbnail(){
-	var html = "変更するサムネイルを選んでください。<br>";
-	for(var i = 0; i < botName.length; i++){
-		html += '<div class="floatLeft recommendFollowerList" onClick="changeThumbnail(' + i + ')">';
-		html += '<img src="' + thumbnailPath + 'user' + i + '.png">';
-		html += '</div>';
+	var html = ["変更するサムネイルを選んでください。<br>"];
+	for(var i = 0, len = botName.length; i < len; i++){
+		var fragment = [
+			'<div class="floatLeft recommendFollowerList" onClick="changeThumbnail(' + i + ')">',
+			'<img src="' + thumbnailPath + 'user' + i + '.png">',
+			'</div>'];
+		Array.prototype.push.apply(html, fragment);
 	}
-	html += '<div class="clear"></div>';
-	document.getElementById("ID_PROFILE_SELECT_THUMBNAIL").innerHTML = html;
+	html.push('<div class="clear"></div>');
+	
+	document.getElementById("ID_PROFILE_SELECT_THUMBNAIL").html = html.join("");
 }
 //////////////////////////
 //サムネイル変更
@@ -214,41 +218,35 @@ function changeThumbnail(id){
 //クローズボタン
 function closeProfile(){
 	init();	//投稿領域の再表示
-	document.getElementById("ID_EDIT_AREA").innerHTML = "";
+	document.getElementById("ID_EDIT_AREA").html = "";
 }
 ///////////////////////
 //フォロワー表示
 function viewFollower(){
-	if(userInfo["follower"] == "") return "";
-	var html = "<hr>フォロワー<br>";
+	if(!userInfo["follower"].length) return "";
+	var html = ["<hr>フォロワー<br>"];
 
-	var arrayTmp = userInfo["follower"].split(",");		//フォロワー取得
+	var arrayTmp = userInfo["follower"];		//フォロワー取得
 
-	for(var i = 0; i < arrayTmp.length; i++){
+	for(var i = 0, len = arrayTmp.length; i < len; i++){
 		var id = arrayTmp[i];
 
-		html += '<div class="floatLeft recommendFollowerList" onClick="deleteFollower(' + id + ')">';
-		html += '<img src="' + thumbnailPath + 'user' + id + '.png"><br>';
-		html += botName[id];
-		html += '</div>';
+		var fragment = [
+			'<div class="floatLeft recommendFollowerList" onClick="deleteFollower(' + id + ')">',
+			'<img src="' + thumbnailPath + 'user' + id + '.png"><br>',
+			botName[id],
+			'</div>'];
+		Array.prototype.push.apply(html, fragment);
 	}
-	html += '<div class="clear"></div>';
-	return html;
+	html.push('<div class="clear"></div>');
+	return html.join("");
 }
 
 //フォロワー削除
 function deleteFollower(id){
 	var check = confirm(botName[id] + "のフォローを解除しますか？");
-	var arrayTmp = userInfo["follower"].split(",");		//フォロワー取得
-	var str = "";
-
-	for(var i = 0; i < arrayTmp.length; i++){
-		if(arrayTmp[i] != id){
-			str += "" + arrayTmp[i] + ",";
-		}
-	}
-	str = str.slice(0, -1);
-	userInfo["follower"] = str;
+	
+	userInfo["follower"] = userInfo["follower"].filter(function(_id) { return _id !== id });
 	viewProfile();
 	alert("解除しました。");
 	//バグ
@@ -261,10 +259,10 @@ function deleteFollower(id){
 function viewEditList(id){
 	var html = "";
 	html = '<div class="pointer" onClick="deleteList(' + id + ')">削除</div>';
-	document.getElementById("ID_EDIT_LIST" + id).innerHTML = html;
+	document.getElementById("ID_EDIT_LIST" + id).html = html;
 	var findId = findObjectId(talkList, id);
 	//バグ
-	if(talkList[findId]["deleteFlug"] == 1){
+	if(talkList[findId]["deleteFlug"] === 1){
 		viewBugEffect("LIST_DONT_CLOSE_DELETE"); 
 	}
 	else{
@@ -277,7 +275,7 @@ function viewEditList(id){
 function deleteList(id){
 	var findId = findObjectId(talkList, id);
 	//バグ
-	if(talkList[findId]["type"] == "bot") viewBugEffect("LIST_DELETE_OTHER"); 
+	if(talkList[findId]["type"] === "bot") viewBugEffect("LIST_DELETE_OTHER"); 
 	talkList.splice(findId, 1);
 	viewArticles(talkList);
 	alert("記事を削除しました。");
@@ -301,10 +299,10 @@ function clickLike(id){
 function viewReplyArea(id){
 	var html = "";
 	html = '<input maxlength="' + MAX_INPUT_CHAR + '" id="ID_REPLY_MAIN' + id + '" type="text"><button class="listReplyButton" onClick="writeReply(' + id + ')">コメントする</button>';
-	document.getElementById("ID_REPLY_AREA" + id).innerHTML = html;
+	document.getElementById("ID_REPLY_AREA" + id).html = html;
 	var findId = findObjectId(talkList, id);
 	//バグ
-	if(talkList[findId]["commentFlug"] == 1){
+	if(talkList[findId]["commentFlug"] === 1){
 		viewBugEffect("LIST_DONT_CLOSE_COMMENTS"); 
 	}
 	else{
@@ -322,7 +320,7 @@ function writeReply(id){
 	var findId = findObjectId(talkList, id);
 
 	//バグ
-	if(talkList[findId]["reply"] != "") viewBugEffect("LIST_COMMENTS"); 
+	if(talkList[findId]["reply"] !== "") viewBugEffect("LIST_COMMENTS"); 
 
 	talkList[findId]["reply"] = html;
 	viewArticles(talkList);
@@ -342,31 +340,26 @@ function clickListDate(){
 //おすすめユーザー表示
 function viewReccomend(num){
 	var checkRnd = [];
-	var html = "";
+	var html = [];
 	for(var i = 0; i < num; i++){
 		var rnd = getRandomNum(botName.length);
-		html += '<div class="floatLeft recommendFollowerList" onClick="addFollower(' + rnd + ')">';
-		html += '<img src="' + thumbnailPath + 'user' + rnd + '.png"><br>';
-		html += botName[rnd];
-		html += '</div>';
+		var fragment = [
+			'<div class="floatLeft recommendFollowerList" onClick="addFollower(' + rnd + ')">',
+			'<img src="' + thumbnailPath + 'user' + rnd + '.png"><br>',
+			botName[rnd],
+			'</div>'];
+		Array.prototype.push.apply(html, fragment);
 		//バグ
 		checkRnd.unshift(rnd);
 	}
-	html += '<div class="clear"></div>';
-	document.getElementById("ID_RECOMMEND_USER").innerHTML = html;
+	html.push('<div class="clear"></div>');
+	document.getElementById("ID_RECOMMEND_USER").html = html.join("");
 	//バグ
 	if(!checkRecommend(checkRnd)) viewBugEffect("RECCOMEND_VIEW_FRIEND"); 
 }
 
 function checkRecommend(checkRnd){
-	for(var i = 0; i < checkRnd.length; i++){
-		for(var j = i + 1; j < checkRnd.length; j++){
-			if(checkRnd[i] == checkRnd[j]){
-				return false;
-			}
-		}
-	}
-	return true;
+	return checkRnd.length === checkRnd.distinct().length;
 }
 
 ///////////////////////////
@@ -375,12 +368,7 @@ function addFollower(id){
 	//バグ
 	if(!checkFollower(id)) viewBugEffect("RECCOMEND_ADD_FRIEND");
 
-	if(userInfo["follower"] == ""){
-		userInfo["follower"] += id;
-	}
-	else{
-		userInfo["follower"] += "," + id;
-	}
+	userInfo["follower"].push(id);
 	alert(botName[id] + "をフォローしました。");
 	
 	
@@ -389,14 +377,7 @@ function addFollower(id){
 ////////////////////////
 //フォロワー重複チェック
 function checkFollower(id){
-	var arrayTmp = userInfo["follower"].split(",");		//フォロワー取得
-
-	for(var i = 0; i < arrayTmp.length; i++){
-		if(arrayTmp[i] == id){
-			return false;
-		}
-	}
-	return true;
+	return !userInfo["follower"].contains(id);
 }
 
 
@@ -404,22 +385,20 @@ function checkFollower(id){
 ////////////////////////////////
 //フォロワーの中からランダムでボットデータを作成する
 function randomBotMessage(){
-	if(userInfo["follower"] == "") return;
+	if(!userInfo["follower"].length) return;
 
-	var arrayTmp = userInfo["follower"].split(",");		//フォロワー取得
-	var id = arrayTmp[getRandomNum(arrayTmp.length)];
+	var id = userInfo["follower"].random();
 	talkList.unshift(makeBotData(id));	//タイムラインに挿入
 	viewArticles(talkList);
 }
 ///////////////////////////
 //ボットデータ作成
 function makeBotData(botId){
-	var rnd = Math.floor( Math.random() * serifuData.length);
 	var obj = {
 		"id" : talkList.length,
 		"image" : 'user' + botId + '.png',
 		"name" : botName[botId],
-		"msg" : serifuData[rnd],
+		"msg" : serifuData.random(),
 		"time" : getTime(),
 		"like" : 0,
 		"reply" : "",
@@ -435,8 +414,8 @@ function makeBotData(botId){
 //Objectに記録しているidから配列のidを取得
 function findObjectId(messages, id){
 	var findId = 0;
-	for(var i = 0; i < messages.length; i++){
-		if(messages[i]["id"] == id){
+	for(var i = 0, len = messages.length; i < len; i++){
+		if(messages[i]["id"] === id){
 			findId = i;
 			break;
 		}
@@ -446,23 +425,22 @@ function findObjectId(messages, id){
 //////////////////////////////
 //０〜numまでの乱数を返す
 function getRandomNum(num){
-	return Math.floor( Math.random() * num);
+	return Math.random() * num | 0;
 }
 //時間取得
 //戻り値：string (月/日 時間:分)
 function getTime(){
-	DD = new Date();
+	var DD = new Date();
 	Year = DD.getYear();
 	Month = DD.getMonth();
 	Day = DD.getDate();
 	Hours = DD.getHours();
-	Minutes = (DD.getMinutes() < 10) ? "0" + DD.getMinutes() : DD.getMinutes();
+	Minutes = ("0" + DD.getMinutes()).slice(-2);
 	return "" + Month + "/" + Day + " " + Hours + ":" + Minutes;
 }
 
 ///////////////////////////
 //バグフラグのon/off
 function changeBugFlag(){
-	bugFindNotification = (document.getElementById("ID_BUG_FLAG").checked)? true : false;
-
+	bugFindNotification = document.getElementById("ID_BUG_FLAG").checked;
 }
